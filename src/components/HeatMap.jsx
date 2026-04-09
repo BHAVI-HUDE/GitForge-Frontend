@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
 import HeatMap from "@uiw/react-heat-map";
 
-/**
- * Generate fake contribution data (frontend only)
- * Pattern is stable and easy to explain
- */
+
 const generateFakeActivity = () => {
   const data = [];
   const today = new Date();
