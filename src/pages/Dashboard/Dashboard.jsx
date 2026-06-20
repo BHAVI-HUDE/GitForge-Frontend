@@ -13,7 +13,12 @@ function Dashboard() {
   
 
  if(loading) return <p>Loading repositories...</p>;
- if(error) return <p style ={{color:"red"}}>{error}</p>;
+  if (error)
+    return (
+      <p style={{ color: "red" }}>
+        {error.message || String(error)}
+      </p>
+    );
 
  return (
     <div className="dashboard">
