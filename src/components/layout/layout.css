@@ -1,71 +1,141 @@
 .app-shell {
   flex: 1;
   display: flex;
+  min-height: calc(100vh - 64px);
 }
+
+/* Main Content */
 
 .app-shell__main {
   flex: 1;
   padding: 24px;
-  background-color: #f6f8fa;
+  background: var(--bg);
   overflow-y: auto;
 }
 
+/* Sidebar */
+
 .sidebar {
-  border-right: 1px solid #d0d7de;
-  padding: 20px 50px;
-  background-color: #f6f8fa;
+  width: 280px;
+  min-width: 280px;
+
+  background: var(--surface);
+
+  border-right: 1px solid var(--border);
+
+  padding: 24px;
+
   position: relative;
 }
 
+/* Repository Title */
+
+.sidebar strong {
+  display: block;
+
+  font-size: 1.1rem;
+  font-weight: 600;
+
+  margin-bottom: 20px;
+
+  color: var(--text);
+}
+
+/* Repository Links */
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 12px;
+}
+
+.sidebar li {
+  margin-bottom: 8px;
+}
+
+.sidebar a {
+  display: block;
+
+  padding: 10px 12px;
+
+  border-radius: 8px;
+
+  color: var(--muted);
+
+  transition: 0.2s ease;
+}
+
+.sidebar a:hover {
+  background: var(--card);
+  color: var(--text);
+}
+
+/* Toggle Button */
+
 .sidebar-toggle {
   position: fixed;
+
   top: 16px;
   left: 16px;
+
   z-index: 1100;
-  border: 1px solid #1f6feb;
-  background: #1f6feb;
-  border-radius: 6px;
-  padding: 6px 10px;
+
+  border: none;
+
+  background: var(--primary);
+
+  color: white;
+
+  border-radius: 8px;
+
+  padding: 8px 12px;
+
   font-size: 18px;
+
   cursor: pointer;
+
   display: none;
-  color: #ffffff;
-  box-shadow: 0 2px 8px rgba(31, 111, 235, 0.25);
 }
 
-.sidebar-toggle:hover {
-  background: #1a5fd0;
-  border-color: #1a5fd0;
-}
-
-.sidebar-toggle:focus-visible {
-  outline: 2px solid #93c5fd;
-  outline-offset: 2px;
-}
+/* Close Button */
 
 .sidebar__close {
   position: absolute;
+
   top: 12px;
   right: 12px;
+
   border: none;
+
   background: transparent;
+
+  color: var(--muted);
+
   font-size: 18px;
+
   cursor: pointer;
-  color: #57606a;
+
   display: none;
 }
 
-@media (max-width: 599px) {
+/* Mobile */
+
+@media (max-width: 768px) {
+
   .sidebar {
     position: fixed;
+
     top: 0;
     left: 0;
+
+    width: 280px;
     height: 100vh;
-    width: 260px;
-    transform: translateX(0);
-    transition: transform 0.2s ease;
-    box-shadow: 2px 0 12px rgba(0, 0, 0, 0.1);
+
     z-index: 1050;
+
+    transform: translateX(0);
+
+    transition: transform 0.25s ease;
   }
 
   .sidebar--closed {
@@ -73,13 +143,13 @@
   }
 
   .sidebar-toggle {
-    display: inline-flex;
+    display: flex;
     align-items: center;
     justify-content: center;
   }
 
   .sidebar__close {
-    display: inline-flex;
+    display: flex;
     align-items: center;
     justify-content: center;
   }

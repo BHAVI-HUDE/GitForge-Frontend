@@ -46,7 +46,7 @@ function Signup() {
   return (
     <div className="signup">
       <div className="signup-header">
-      <img src="/assets/github_733609.png" id = "git-icon"/>
+      <img src="/assets/git_new_logo.webp" id = "git-icon" style={{ height: "120px", width: "120px" }} />
 
       <br></br><br></br>
       <h2>Signup</h2>

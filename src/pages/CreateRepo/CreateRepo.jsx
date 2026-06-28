@@ -46,7 +46,7 @@ function CreateRepo() {
             <form onSubmit = {handleSubmit}>
                 <div>
                     <p>Repository name *</p>
-                    <input
+                    <input style={{backgroundColor: "#161b22", color:"#ffffff"}}
                         type="text"
                         
                         value={name}
@@ -57,7 +57,7 @@ function CreateRepo() {
 
                 <div>
                     <p>Description <i>(Optional)</i></p>
-                    <input
+                    <input style={{backgroundColor: "#161b22", color:"#ffffff"}}
                         type="text"
                         
                         value={description}
@@ -65,15 +65,33 @@ function CreateRepo() {
                     />
                 </div>
 
-                <div>
-                    <select
-                        value={isPrivate}
-                        onChange={(e) => setIsPrivate(e.target.value === "true")}
-                    >
-                        <option value="false">Public</option>
-                        <option value="true">Private</option>
-                    </select>
-                    </div>
+                <div className="visibility-options">
+  <label className="visibility-option">
+    <input
+      type="radio"
+      name="visibility"
+      checked={!isPrivate}
+      onChange={() => setIsPrivate(false)}
+    />
+    <span>
+      <strong>Public</strong>
+      <small>Anyone can view this repository</small>
+    </span>
+  </label>
+
+  <label className="visibility-option">
+    <input
+      type="radio"
+      name="visibility"
+      checked={isPrivate}
+      onChange={() => setIsPrivate(true)}
+    />
+    <span>
+      <strong>Private</strong>
+      <small>Only you can access this repository</small>
+    </span>
+  </label>
+</div>
 
                 <br></br>
                 <button type="submit">Create</button>

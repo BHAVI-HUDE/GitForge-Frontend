@@ -1,4 +1,4 @@
-import RepoCard from "../../components/RepoCard";
+import RepoCard from "./RepoCard";
 
 const RepoList = ({ repos = [] }) => {
   if (!repos.length) {

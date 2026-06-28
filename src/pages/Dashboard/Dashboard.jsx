@@ -1,7 +1,10 @@
 import { useSearchParams } from "react-router-dom";
 import RepoList from "./RepoList";
 import { useRepositories } from "../../hooks/useRepositories";
-import ActivityHeatmap from "../../components/HeatMap";
+import ActivityHeatmap from "./HeatMap";
+import WelcomeBanner from "./components/WelcomeBanner";
+import StatsGrid from "./components/StatsGrid";
+import RecentActivity from "./components/RecentActivity";
 
 const API_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -20,14 +23,30 @@ function Dashboard() {
       </p>
     );
 
- return (
-    <div className="dashboard">
-     <div className="dashboard-content">
-        <RepoList repos={repos} />
-        <ActivityHeatmap rectSize={12} space={2}/>
-      </div>
+return (
+  <div className="dashboard">
+
+    <div className="dashboard-content">
+
+      <WelcomeBanner />
+
+      <StatsGrid
+        repoCount={repos.length}
+      />
+
+      <RepoList repos={repos} />
+
+      <RecentActivity />
+
+      <ActivityHeatmap
+        rectSize={12}
+        space={2}
+      />
+
     </div>
-  );
+
+  </div>
+);
   } 
 
 export default Dashboard;

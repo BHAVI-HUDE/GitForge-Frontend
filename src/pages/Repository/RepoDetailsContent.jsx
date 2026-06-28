@@ -4,8 +4,9 @@ import RepoTabs from "./RepoTabs";
 import RepoHeader from "./RepoHeader";
 import IssuesTab from "./IssuesTab/IssuesTab";
 import CodeTab from "./CodeTab/CodeTab";
+import RepoStats from "./RepoStats";
 
-import "./RepoDetails.css";
+
 
 const apiUrl = import.meta.env.VITE_API_BASE_URL;
 
@@ -40,6 +41,11 @@ const {
   if (error) return <p style={{ color: "red" }}>{error}</p>;
   if (!repo) return null;
 
+  console.log("Repo:", repo);
+console.log("Owner Name:", ownerName);
+console.log("Is Owner:", isOwner);
+console.log("Items:", items);
+
   return (
     <div className="repo-page">
       <RepoHeader
@@ -52,6 +58,12 @@ const {
         onUploadFiles={() => fileInputRef.current?.click()}
         onToggleVisibility={handlers.toggleVisibility}
         onDeleteRepository={handlers.deleteRepository}
+      />
+
+      <RepoStats
+        items={items}
+        issues={issues}
+        repo={repo}
       />
 
       <RepoTabs

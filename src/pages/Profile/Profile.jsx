@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import "./Profile.css";
-import ActivityHeatmap from "../../components/HeatMap";
+import ActivityHeatmap from "../Dashboard/HeatMap";
 
 const API_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -18,7 +17,6 @@ function Profile() {
 
   const avatarInputRef = useRef(null);
 
-  // FETCH PROFILE
   useEffect(() => {
     async function fetchProfile() {
       try {
@@ -31,6 +29,7 @@ function Profile() {
 
         setUser(data.user);
         setRepos(data.repos || []);
+
         setUsername(data.user.username);
         setBio(data.user.bio || "");
       } catch (err) {
@@ -43,9 +42,9 @@ function Profile() {
     fetchProfile();
   }, [id]);
 
-  // AVATAR UPLOAD
   const handleAvatarUpload = async (e) => {
     const file = e.target.files[0];
+
     if (!file) return;
 
     const formData = new FormData();
@@ -64,28 +63,35 @@ function Profile() {
       }
 
       setUser((prev) =>
-        prev ? { ...prev, avatar: `${data.avatar}?t=${Date.now()}` } : prev
+        prev
+          ? {
+              ...prev,
+              avatar: `${data.avatar}?t=${Date.now()}`,
+            }
+          : prev
       );
     } catch (err) {
       alert(err.message);
-    } finally {
-      e.target.value = "";
     }
+
+    e.target.value = "";
   };
 
-  // UPDATE PROFILE
   const handleProfileUpdate = async () => {
     try {
-      const res = await fetch(`${API_URL}/user/updateProfile/${id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          username,
-          bio,
-        }),
-      });
+      const res = await fetch(
+        `${API_URL}/user/updateProfile/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            username,
+            bio,
+          }),
+        }
+      );
 
       const data = await res.json();
 
@@ -100,96 +106,175 @@ function Profile() {
     }
   };
 
-  // RENDER
   if (loading) return <p>Loading profile...</p>;
+
   if (!user) return <p>User not found</p>;
 
   return (
     <div className="profile-page">
-      {/* LEFT COLUMN */}
-      <div className="profile-left">
-        <img
-          src={user?.avatar || "/assets/defaultAvatar.png"}
-          alt="avatar"
-          className="profile-avatar"
-          style={{ borderRadius: "50%" }}
-        />
 
-        <button
-          className="profile-avatar-btn"
-          onClick={() => avatarInputRef.current.click()}
-        >
-          Change avatar
-        </button>
+      {/* HEADER */}
 
-        <input
-          type="file"
-          ref={avatarInputRef}
-          style={{ display: "none" }}
-          accept="image/*"
-          onChange={handleAvatarUpload}
-        />
-
-        {editing ? (
-          <>
-            <input
-              className="profile-input"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
-
-            <textarea
-              className="profile-textarea"
-              value={bio}
-              onChange={(e) => setBio(e.target.value)}
-              placeholder="Write a bio..."
-            />
-
-            <div className="profile-actions">
-              <button onClick={handleProfileUpdate}>Save</button>
-              <button onClick={() => setEditing(false)}>Cancel</button>
-            </div>
-          </>
-        ) : (
-          <>
-            <h2>{user.username}</h2>
-            <p>{user.bio || "No bio added"}</p>
-
-            <button onClick={() => setEditing(true)}>Edit profile</button>
-          </>
-        )}
+      <div className="profile-header">
+        <h1>{user.username}</h1>
+        <p>Developer Profile</p>
       </div>
 
-      {/* RIGHT COLUMN */}
-      <div className="profile-right">
-        <h3>Repositories ({repos.length})</h3>
+      {/* MAIN GRID */}
 
-        {repos.length === 0 ? (
-          <p style={{ color: "#57606a" }}>
-            This user has no repositories yet.
-          </p>
-        ) : (
-          repos.map((repo) => (
-            <div key={repo._id} className="repo-card">
-              <div className="repo-info">
-                <Link to={`/repo/${repo._id}`} className="repo-name">
-                  {repo.name}
-                </Link>
-                <p className="repo-desc">
-                  {repo.description || "No description"}
-                </p>
+      <div className="profile-layout">
+
+        {/* LEFT */}
+
+        <div className="profile-left">
+
+          <img
+            src={user.avatar || "/assets/defaultAvatar.png"}
+            alt="avatar"
+            className="profile-avatar"
+          />
+
+          <button
+            className="profile-avatar-btn"
+            onClick={() => avatarInputRef.current.click()}
+          >
+            Change Avatar
+          </button>
+
+          <input
+            type="file"
+            ref={avatarInputRef}
+            style={{ display: "none" }}
+            accept="image/*"
+            onChange={handleAvatarUpload}
+          />
+
+          {editing ? (
+            <>
+              <input
+                className="profile-input"
+                value={username}
+                onChange={(e) =>
+                  setUsername(e.target.value)
+                }
+              />
+
+              <textarea
+                className="profile-textarea"
+                value={bio}
+                onChange={(e) =>
+                  setBio(e.target.value)
+                }
+                placeholder="Write a bio..."
+              />
+
+              <div className="profile-actions">
+                <button onClick={handleProfileUpdate}>
+                  Save
+                </button>
+
+                <button
+                  onClick={() => setEditing(false)}
+                >
+                  Cancel
+                </button>
               </div>
-              <span className="repo-visibility">
-                {repo.isPrivate ? "Private" : "Public"}
-              </span>
-            </div>
-          ))
-        )}
-      </div>
+            </>
+          ) : (
+            <>
+              <h2>{user.username}</h2>
 
-      {/* HEATMAP */}
-      <div className="heatmap">
-        <ActivityHeatmap />
+              <p className="profile-bio">
+                {user.bio || "No bio added"}
+              </p>
+
+              <button
+                onClick={() => setEditing(true)}
+              >
+                Edit Profile
+              </button>
+            </>
+          )}
+        </div>
+
+        {/* RIGHT */}
+
+        <div className="profile-content">
+
+          {/* STATS */}
+
+          <div className="profile-stats">
+
+            <div className="stat-card">
+              <h3>{repos.length}</h3>
+              <p>Repositories</p>
+            </div>
+
+            <div className="stat-card">
+              <h3>0</h3>
+              <p>Issues</p>
+            </div>
+
+            <div className="stat-card">
+              <h3>0</h3>
+              <p>Files</p>
+            </div>
+
+            <div className="stat-card">
+              <h3>0 MB</h3>
+              <p>Storage</p>
+            </div>
+
+          </div>
+
+          {/* REPOSITORIES */}
+
+          <div className="repositories-section">
+
+            <div className="section-header">
+              <h2>Repositories</h2>
+              <span>{repos.length}</span>
+            </div>
+
+            {repos.length === 0 ? (
+              <p>No repositories found.</p>
+            ) : (
+              repos.map((repo) => (
+                <div
+                  key={repo._id}
+                  className="repo-card"
+                >
+                  <div className="repo-info">
+
+                    <Link
+                      to={`/repo/${repo._id}`}
+                      className="repo-name"
+                    >
+                      📁 {repo.name}
+                    </Link>
+
+                    <p className="repo-desc">
+                      {repo.description ||
+                        "No description"}
+                    </p>
+
+                  </div>
+
+                  <span className="repo-visibility">
+                    {repo.isPrivate
+                      ? "Private"
+                      : "Public"}
+                  </span>
+                </div>
+              ))
+            )}
+          </div>
+
+          {/* HEATMAP */}
+
+          <ActivityHeatmap />
+
+        </div>
       </div>
     </div>
   );

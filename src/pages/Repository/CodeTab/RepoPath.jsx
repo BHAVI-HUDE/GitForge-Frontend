@@ -1,10 +1,24 @@
 const RepoPath = ({ currentPath, onGoBack }) => {
   return (
-    <div className="repo-path">
-      {currentPath && (
-        <button onClick={onGoBack}>← Back</button>
-      )}
-      <span>{currentPath || "root"}</span>
+    <div className="repo-breadcrumb">
+
+      <div className="breadcrumb-left">
+
+        {currentPath && (
+          <button
+            className="breadcrumb-back"
+            onClick={onGoBack}
+          >
+            ←
+          </button>
+        )}
+
+        <span className="breadcrumb-path">
+          📁 {currentPath || "root"}
+        </span>
+
+      </div>
+
     </div>
   );
 };

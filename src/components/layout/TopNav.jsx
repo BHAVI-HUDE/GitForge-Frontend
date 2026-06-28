@@ -56,9 +56,9 @@ function TopNav() {
         style={{ cursor: "pointer" }}
       >
         <img 
-          src="/assets/github_733609.png" 
+          src="/assets/git_new_logo.webp" 
           alt="GitHub Logo" 
-          style={{ height: "30px", width: "30px" }} 
+          style={{ height: "85px", width: "85px" , marginLeft:"-20px", marginRight:0}} 
         />
 
         <p>GitForge</p>
@@ -90,9 +90,7 @@ function TopNav() {
           <FontAwesomeIcon
             icon={faSquarePlus}
             style={{
-              color: "#ffffff",
-              backgroundColor: "black",
-              fontSize: "20px",
+              fontSize: "30px",
               borderRadius: 4,
             }}
             onClick={() => navigate("/create")}
