@@ -7,7 +7,6 @@ import Profile from "../pages/Profile/Profile";
 import ProtectedRoute from "./ProtectedRoute";
 import Signup from "../pages/Auth/Signup";
 import AppShell from "../components/layout/AppShell";
-
 import Layout from "../components/Layout";
 
 
