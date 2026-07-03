@@ -1,5 +1,5 @@
-import RepoPath from "./RepoPath";
-import RepoFileList from "./RepoFileList";
+import RepoBreadcrumb from "./RepoBreadcrumb";
+import FileExplorer from "./FileExplorer";
 import FileViewer from "./FileViewer";
 
 const CodeTab = ({
@@ -10,25 +10,33 @@ const CodeTab = ({
   onDeleteItem,
   onGoBack,
    canEdit,
+   handleAddFile,
+   handleUploadFiles,
 }) => {
   return (
-    <>
-      <RepoPath
+    <div className="repository-content">
+
+    <RepoBreadcrumb
         currentPath={currentPath}
         onGoBack={onGoBack}
-      />
+    />
 
-      {fileView ? (
-        <FileViewer file={fileView} />
-      ) : (
-        <RepoFileList
-          items={items}
-          onItemClick={onItemClick}
-          onDeleteItem={onDeleteItem}
-           canEdit={canEdit}
+    {fileView ? (
+        <FileViewer
+            file={fileView}
         />
-      )}
-    </>
+    ) : (
+        <FileExplorer
+            items={items}
+            onItemClick={onItemClick}
+            onDeleteItem={onDeleteItem}
+            canEdit={canEdit}
+            onAddFile={handleAddFile}
+            onUploadFiles={handleUploadFiles}
+        />
+    )}
+
+</div>
   );
 };
 

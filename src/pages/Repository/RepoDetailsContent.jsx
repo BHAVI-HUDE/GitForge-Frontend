@@ -5,6 +5,9 @@ import RepoHeader from "./RepoHeader";
 import IssuesTab from "./IssuesTab/IssuesTab";
 import CodeTab from "./CodeTab/CodeTab";
 import RepoStats from "./RepoStats";
+import DropdownMenu from "../../components/ui/DropdownMenu";
+import RepoToolbar from "./RepoToolbar";
+import { FiPlus, FiFilePlus, FiFolderPlus } from "react-icons/fi";
 
 
 
@@ -66,6 +69,8 @@ console.log("Items:", items);
         repo={repo}
       />
 
+      
+
       <RepoTabs
         activeTab={activeTab}
         setActiveTab={setActiveTab}
@@ -87,17 +92,28 @@ console.log("Items:", items);
       )}
 
       {activeTab === "code" && (
-        <CodeTab
-          items={items}
-          currentPath={currentPath}
-          fileView={fileView}
-          onItemClick={handlers.handleItemClick}
-          onDeleteItem={handlers.handleDelete}
-          onGoBack={handlers.goBack}
-           canEdit={isOwner}
-        />
+  <>
+    <RepoToolbar
+      repo={repo}
+      isOwner={isOwner}
+      onAddFile={handlers.handleAddFile}
+      onAddFolder={handlers.handleAddFolder}
+      onUploadFiles={() => fileInputRef.current?.click()}
+      onToggleVisibility={handlers.toggleVisibility}
+      onDeleteRepository={handlers.deleteRepository}
+    />
 
-      )}
+    <CodeTab
+      items={items}
+      currentPath={currentPath}
+      fileView={fileView}
+      onItemClick={handlers.handleItemClick}
+      onDeleteItem={handlers.handleDelete}
+      onGoBack={handlers.goBack}
+      canEdit={isOwner}
+    />
+  </>
+)}
     </div>
   );
 }
