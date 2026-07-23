@@ -7,7 +7,7 @@ import ImageViewer from "./ImageViewer";
 import PdfViewer from "./PdfViewer";
 import UnknownViewer from "./UnknownViewer";
 
-function FileViewer({ file }) {
+function FileViewer({ file, updateFileContent }) {
   const [isEditing, setIsEditing] = useState(false);
 
   if (!file) return null;
@@ -64,6 +64,9 @@ function FileViewer({ file }) {
         <CodeEditor
           file={file}
           onCancel={() => setIsEditing(false)}
+          updateFileContent={updateFileContent}
+
+          
         />
       );
     }

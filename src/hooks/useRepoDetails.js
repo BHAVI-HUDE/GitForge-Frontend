@@ -171,6 +171,29 @@ export function useRepoDetails(id) {
     }
   };
 
+  const updateFileContent = async (path, content) => {
+  try {
+    const data = await apiRequest(`/repo/${id}/file`, {
+      method: "PUT",
+      body: {
+        path,
+        content,
+      },
+    });
+
+    // Refresh the file after saving
+    const updatedFile = await apiRequest(
+      `/repo/${id}/file/view?path=${path}`
+    );
+
+    setFileView(updatedFile.file);
+
+    return data;
+  } catch (err) {
+    throw err;
+  }
+};
+
   const handleDelete = async (item) => {
     const fullPath = currentPath
       ? `${currentPath}/${item.name}`
@@ -351,6 +374,7 @@ export function useRepoDetails(id) {
       handleAddFile,
       handleAddFolder,
       handleUploadFiles,
+      updateFileContent,
       handleCreateIssue,
       toggleIssueStatus,
       handleDeleteIssue,

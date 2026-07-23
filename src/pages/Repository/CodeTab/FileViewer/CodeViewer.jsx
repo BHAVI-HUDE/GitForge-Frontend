@@ -4,7 +4,7 @@ import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import FileViewerHeader from "./FileViewerHeader";
 import getLanguage from "../../../../utils/getLanguage";
 
-function CodeViewer({ file }) {
+function CodeViewer({ file, onEdit }) {
   if (!file) return null;
 
   const language = getLanguage(file.name);
@@ -14,7 +14,7 @@ function CodeViewer({ file }) {
       <FileViewerHeader
         file={file}
         fileType={language.toUpperCase()}
-        onEdit={() => {}}
+        onEdit={onEdit}
       />
 
       <SyntaxHighlighter

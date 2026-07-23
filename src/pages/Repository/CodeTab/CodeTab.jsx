@@ -9,9 +9,10 @@ const CodeTab = ({
   onItemClick,
   onDeleteItem,
   onGoBack,
-   canEdit,
-   handleAddFile,
-   handleUploadFiles,
+  canEdit,
+  handleAddFile,
+  handleUploadFiles,
+  updateFileContent,
 }) => {
   return (
     <div className="repository-content">
@@ -24,6 +25,7 @@ const CodeTab = ({
     {fileView ? (
         <FileViewer
             file={fileView}
+            updateFileContent={updateFileContent}
         />
     ) : (
         <FileExplorer

@@ -104,14 +104,17 @@ console.log("Items:", items);
     />
 
     <CodeTab
-      items={items}
-      currentPath={currentPath}
-      fileView={fileView}
-      onItemClick={handlers.handleItemClick}
-      onDeleteItem={handlers.handleDelete}
-      onGoBack={handlers.goBack}
-      canEdit={isOwner}
-    />
+  items={items}
+  currentPath={currentPath}
+  fileView={fileView}
+  onItemClick={handlers.handleItemClick}
+  onDeleteItem={handlers.handleDelete}
+  onGoBack={handlers.goBack}
+  canEdit={isOwner}
+  handleAddFile={handlers.handleAddFile}
+  handleUploadFiles={handlers.handleUploadFiles}
+  updateFileContent={handlers.updateFileContent}
+/>
   </>
 )}
     </div>
