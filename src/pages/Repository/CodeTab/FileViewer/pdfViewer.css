@@ -1,0 +1,14 @@
+.pdf-viewer-container {
+    width: 100%;
+    height: calc(100vh - 220px); /* Adjust according to your navbar/header */
+    overflow: hidden;
+    border: 1px solid #30363d;
+    border-radius: 6px;
+    background-color: #0d1117;
+}
+
+.pdf-viewer {
+    width: 100%;
+    height: 100%;
+    border: none;
+}

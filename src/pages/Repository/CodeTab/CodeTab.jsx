@@ -1,6 +1,6 @@
 import RepoBreadcrumb from "./RepoBreadcrumb";
 import FileExplorer from "./FileExplorer";
-import FileViewer from "./FileViewer";
+import FileViewer from "./FileViewer/FileViewer";
 
 const CodeTab = ({
   items,

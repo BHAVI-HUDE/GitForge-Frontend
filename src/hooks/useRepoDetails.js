@@ -165,10 +165,9 @@ export function useRepoDetails(id) {
       const data = await apiRequest(
         `/repo/${id}/file/view?path=${fullPath}`
       );
-      setFileView({
-        name: data.name,
-        content: data.content,
-      });
+
+      console.log(data);
+      setFileView(data.file);
     }
   };
 
