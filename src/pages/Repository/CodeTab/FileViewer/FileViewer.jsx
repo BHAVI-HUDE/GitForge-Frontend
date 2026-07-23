@@ -1,15 +1,20 @@
+import { useState } from "react";
+
 import CodeViewer from "./CodeViewer";
+import CodeEditor from "./CodeEditor";
 import MarkdownViewer from "./MarkdownViewer";
 import ImageViewer from "./ImageViewer";
 import PdfViewer from "./PdfViewer";
 import UnknownViewer from "./UnknownViewer";
 
 function FileViewer({ file }) {
+  const [isEditing, setIsEditing] = useState(false);
+
   if (!file) return null;
+
   console.log("FileViewer received:", file);
 
   const extension = file.name.split(".").pop().toLowerCase();
-  const [isEditing, setIsEditing] = useState(false);
 
   const codeExtensions = [
     "js",
@@ -55,20 +60,20 @@ function FileViewer({ file }) {
 
   if (codeExtensions.includes(extension)) {
     if (isEditing) {
-    return (
+      return (
         <CodeEditor
-            file={file}
-            onCancel={() => setIsEditing(false)}
+          file={file}
+          onCancel={() => setIsEditing(false)}
         />
-    );
-}
+      );
+    }
 
-return (
-    <CodeViewer
+    return (
+      <CodeViewer
         file={file}
         onEdit={() => setIsEditing(true)}
-    />
-);
+      />
+    );
   }
 
   return <UnknownViewer file={file} />;
